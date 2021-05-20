@@ -10,16 +10,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Dockerhub login
+    - name: Docker login
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_TOKEN }}
-    - name: Build and push docker image
-      env:
+    - name: Tag docker image
+      env: 
         DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: avpeery/tech-talk-tutorial:${{ env.DOCKER_TAG }}
+      run: |
+        docker pull avpeery/tech-talk-tutorial
+        docker tag avpeery/tech-talk-tutorial avpeery/tech-talk-tutorial:${{ env.DOCKER_TAG }}
+        docker push avpeery/tech-talk-tutorial:${{ env.DOCKER_TAG }}
       
