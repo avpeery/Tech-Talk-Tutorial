@@ -1,0 +1,23 @@
+name: main
+
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update docker image
+      env:
+        DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+      run: |
+        echo "$DOCKER_PASS" | docker login --username "$DOCKER_USER" --password-stdin
+        docker pull avpeery/tech-talk-tutorial
+        docker tag avpeery/tech-talk-tutorial avpeery/tech-talk-tutorial:${{ env.DOCKER_TAG }}
+        docker push avpeery/tech-talk-tutorial:${{ env.DOCKER_TAG }}
+      
