@@ -1,6 +1,6 @@
 # Tech-Talk-Tutorial
 
-Test out an example GitHub Actions workflow using Github Secrets to store docker credentials!
+Test out an example GitHub Actions workflow using Github Secrets to store docker credentials! 
 
 1. Update DOCKER_TAG in Settings > Secrets to what you want your docker tag to be for this workflow
 2. Make a push to the main branch
